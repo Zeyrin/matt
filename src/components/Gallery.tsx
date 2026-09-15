@@ -26,15 +26,31 @@ export default function Gallery() {
     fetch('/api/gallery').then((r) => (r.ok ? r.json() : null)).then((data) => { if (Array.isArray(data) && data.length) setItems(data); }).catch(() => {}).finally(() => setLoading(false));
   }, []);
   const reelRef = useRef<HTMLDivElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: reelRef });
-  const x = useTransform(scrollYProgress, [0, 1], ['1%', '-78%']);
+  // Measure the track so the reel always ends exactly on the last card,
+  // whatever the viewport width (a fixed % overshoots on desktop and cuts
+  // the CTA off on phones).
+  const [travel, setTravel] = useState(0);
+  useEffect(() => {
+    const measure = () => {
+      const track = trackRef.current;
+      if (!track) return;
+      setTravel(Math.max(0, track.scrollWidth - window.innerWidth));
+    };
+    measure();
+    window.addEventListener('resize', measure);
+    const t = setTimeout(measure, 800); // fonts / images settling
+    return () => { window.removeEventListener('resize', measure); clearTimeout(t); };
+  }, [items]);
+  const x = useTransform(scrollYProgress, (p) => -travel * p);
 
   return (
     <section id="work" className="relative">
       <div className="mx-auto max-w-[1500px] px-5 md:px-10">
         <Eyebrow>Selected work</Eyebrow>
         <div className="mt-8 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
-          <Reveal><h2 className="font-display text-5xl font-black leading-[0.95] md:text-8xl">DIVERS,<br /><span className="text-outline-aqua">SUSPENDED</span></h2></Reveal>
+          <Reveal><h2 className="font-display text-[clamp(2.4rem,12.5vw,5rem)] font-black leading-[0.95] md:text-8xl">DIVERS,<br /><span className="text-outline-aqua">SUSPENDED</span></h2></Reveal>
           <Reveal delay={0.15} className="max-w-sm"><p className="text-sm leading-relaxed text-mist">From the Red Sea walls of Ras Mohamed to the fish clouds of Sail Rock — every frame is an ordinary fun dive, shot candidly, delivered same-day. This could be you, mid-water, mid-breath.</p></Reveal>
         </div>
       </div>
@@ -59,18 +75,18 @@ export default function Gallery() {
           </Reveal>
         ))}
       </div>
-      <div ref={reelRef} className="relative mt-28 h-[340vh]">
-        <div className="sticky top-0 flex h-screen flex-col justify-center overflow-hidden">
+      <div ref={reelRef} className="relative mt-20 h-[280vh] md:mt-28 md:h-[340vh]">
+        <div className="h-viewport sticky top-0 flex flex-col justify-center overflow-hidden">
           <div className="mx-auto mb-8 flex w-full max-w-[1500px] items-center justify-between px-5 md:px-10">
             <p className="text-[11px] uppercase tracking-[0.4em] text-aqua">Keep scrolling — drift with it</p>
             <p className="hidden items-center gap-2 text-[11px] uppercase tracking-[0.4em] text-mist md:flex">The reel <ArrowRight size={14} className="text-aqua" /></p>
           </div>
-          <motion.div style={{ x }} className="flex w-max items-center gap-6 px-5 will-change-transform md:gap-10 md:px-10">
-            <div className="w-[78vw] shrink-0 md:w-[34vw]">
-              <p className="font-display text-4xl font-light leading-tight text-foam md:text-6xl">One dive.<br /><span className="italic text-aqua">Forty frames</span> of you flying.</p>
+          <motion.div ref={trackRef} style={{ x }} className="flex w-max items-center gap-6 px-5 will-change-transform md:gap-10 md:px-10">
+            <div className="w-[72vw] shrink-0 md:w-[34vw]">
+              <p className="font-display text-3xl font-light leading-tight text-foam sm:text-4xl md:text-6xl">One dive.<br /><span className="italic text-aqua">Forty frames</span> of you flying.</p>
             </div>
             {items.map((item, i) => (
-              <figure key={`reel-${item.id}`} data-cursor-label="Drift" className={`group relative shrink-0 overflow-hidden rounded-[3px] ${i % 2 ? 'mt-20 w-[70vw] md:w-[26vw]' : 'w-[70vw] md:w-[30vw]'}`}>
+              <figure key={`reel-${item.id}`} data-cursor-label="Drift" className={`group relative shrink-0 overflow-hidden rounded-[3px] ${i % 2 ? 'mt-10 w-[64vw] sm:mt-20 sm:w-[70vw] md:w-[26vw]' : 'w-[64vw] sm:w-[70vw] md:w-[30vw]'}`}>
                 <img src={REEL_IMAGES[i % REEL_IMAGES.length]} alt={item.title} loading="lazy" decoding="async" className="img-deep aspect-[4/5] w-full object-cover" />
                 <div className="absolute inset-0 bg-gradient-to-t from-abyss/85 via-transparent to-transparent" />
                 <figcaption className="absolute bottom-0 p-5">
@@ -80,8 +96,8 @@ export default function Gallery() {
                 <span className="font-display text-outline-faint absolute right-3 top-2 text-6xl font-black">0{i + 1}</span>
               </figure>
             ))}
-            <div className="flex w-[70vw] shrink-0 items-center justify-center md:w-[26vw]">
-              <a href="#book" className="group flex h-52 w-52 flex-col items-center justify-center gap-2 rounded-full border border-aqua/50 text-center transition-all duration-500 hover:bg-aqua hover:shadow-[0_0_80px_rgba(70,212,195,0.5)]">
+            <div className="flex w-[64vw] shrink-0 items-center justify-center sm:w-[70vw] md:w-[26vw]">
+              <a href="#book" className="group flex h-44 w-44 flex-col sm:h-52 sm:w-52 items-center justify-center gap-2 rounded-full border border-aqua/50 text-center transition-all duration-500 hover:bg-aqua hover:shadow-[0_0_80px_rgba(70,212,195,0.5)]">
                 <span className="font-display text-2xl italic text-foam group-hover:text-abyss">Your turn</span>
                 <ArrowRight size={20} className="text-aqua transition-transform duration-500 group-hover:translate-x-1 group-hover:text-abyss" />
               </a>

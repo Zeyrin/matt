@@ -9,7 +9,7 @@ const letter: Variants = { hidden: { y: '115%', rotate: 5, opacity: 0 }, show: {
 
 function StaggerLine({ text, delay, className }: { text: string; delay: number; className?: string }) {
   return (
-    <motion.span className={`block overflow-hidden pb-[0.08em] ${className ?? ''}`} variants={lineWrap} initial="hidden" animate="show" custom={delay}>
+    <motion.span className={`block overflow-hidden whitespace-nowrap pb-[0.08em] ${className ?? ''}`} variants={lineWrap} initial="hidden" animate="show" custom={delay}>
       {text.split('').map((ch, i) => (
         <motion.span key={i} variants={letter} className="inline-block will-change-transform">{ch === ' ' ? '\u00A0' : ch}</motion.span>
       ))}
@@ -39,9 +39,9 @@ export default function Hero({ ready }: { ready: boolean }) {
   }, []);
 
   return (
-    <section ref={ref} id="top" className="relative h-[100svh] min-h-[640px] overflow-hidden">
+    <section ref={ref} id="top" className="h-viewport relative min-h-[600px] overflow-hidden">
       <motion.div className="absolute inset-0 will-change-transform" style={{ y: bgY, scale: bgScale }}>
-        <video ref={videoRef} className="h-full w-full object-cover" src="/video/hero.mp4" poster="/img/hero-poster.jpg" autoPlay muted loop playsInline />
+        <video ref={videoRef} className="h-full w-full object-cover" src="/video/hero.mp4" poster="/img/hero-poster.jpg" autoPlay muted loop playsInline preload="auto" disablePictureInPicture />
       </motion.div>
       <div className="absolute inset-0 bg-gradient-to-b from-abyss/80 via-abyss/25 to-abyss" />
       <div className="absolute inset-0 bg-[radial-gradient(120%_90%_at_50%_10%,transparent_40%,rgba(1,10,19,0.55)_100%)]" />
@@ -57,20 +57,20 @@ export default function Hero({ ready }: { ready: boolean }) {
           {ready && (
             <>
               <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.9, delay: 0.15, ease: EASE }} className="mb-5 flex flex-wrap items-center gap-x-6 gap-y-2 text-[11px] uppercase tracking-[0.4em] text-aqua">
-                <span className="flex items-center gap-2"><MapPin size={13} /> Sail Rock, Gulf of Thailand — 9°58′N</span>
+                <span className="flex items-center gap-2"><MapPin size={13} className="shrink-0" /> Sail Rock, Gulf of Thailand<span className="hidden sm:inline"> — 9°58′N</span></span>
                 <span className="hidden h-px w-16 bg-aqua/50 sm:block" />
                 <span className="text-foam/70">Koh Tao season · 2026</span>
               </motion.div>
               <h1 className="font-display font-black leading-[0.84] tracking-tight">
-                <StaggerLine text="BENEATH" delay={0.25} className="text-[clamp(3.4rem,13vw,11.5rem)] text-foam [text-shadow:0_10px_40px_rgba(0,0,0,0.6)]" />
-                <StaggerLine text="THE SURFACE" delay={0.55} className="text-outline text-[clamp(3.4rem,13vw,11.5rem)]" />
+                <StaggerLine text="BENEATH" delay={0.25} className="text-[clamp(2rem,11vw,11.5rem)] text-foam [text-shadow:0_10px_40px_rgba(0,0,0,0.6)]" />
+                <StaggerLine text="THE SURFACE" delay={0.55} className="text-outline text-[clamp(2rem,11vw,11.5rem)]" />
               </h1>
-              <div className="mt-7 flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
-                <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: 1.15, ease: EASE }} className="font-display max-w-md text-xl font-light italic leading-relaxed text-foam/85 md:text-2xl">
+              <div className="mt-6 flex flex-col gap-6 md:mt-7 md:flex-row md:gap-8 md:items-end md:justify-between">
+                <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: 1.15, ease: EASE }} className="font-display max-w-md text-lg font-light italic leading-relaxed text-foam/85 sm:text-xl md:text-2xl">
                   Films and portraits of divers, shot where the light turns to liquid — yours to keep before you surface.
                 </motion.p>
-                <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: 1.3, ease: EASE }} className="flex items-center gap-5">
-                  <a href="#work" data-hover className="group relative overflow-hidden rounded-full bg-foam px-8 py-4 text-[12px] font-bold uppercase tracking-[0.25em] text-abyss transition-shadow duration-500 hover:shadow-[0_0_50px_rgba(233,245,241,0.4)]">
+                <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: 1.3, ease: EASE }} className="flex flex-wrap items-center gap-4 sm:gap-5">
+                  <a href="#work" data-hover className="group relative overflow-hidden rounded-full bg-foam px-7 py-4 text-[12px] font-bold sm:px-8 uppercase tracking-[0.25em] text-abyss transition-shadow duration-500 hover:shadow-[0_0_50px_rgba(233,245,241,0.4)]">
                     <span className="relative z-10 transition-colors duration-500 group-hover:text-foam">Enter the blue</span>
                     <span className="absolute inset-0 -translate-x-full bg-gradient-to-r from-teal via-aqua to-teal transition-transform duration-500 ease-out group-hover:translate-x-0" />
                   </a>
@@ -80,7 +80,7 @@ export default function Hero({ ready }: { ready: boolean }) {
             </>
           )}
         </div>
-        <div className="mx-auto mt-10 flex w-full max-w-[1500px] items-end justify-between px-5 md:px-10">
+        <div className="mx-auto mt-8 flex w-full max-w-[1500px] md:mt-10 items-end justify-between px-5 md:px-10">
           <div className="flex items-center gap-4 text-[10px] uppercase tracking-[0.4em] text-mist">
             <span className="grid h-11 w-11 place-items-center rounded-full border border-foam/20"><ArrowDown size={15} className="animate-float-y text-aqua" /></span>
             <span className="hidden sm:block">Descend<br />to explore</span>

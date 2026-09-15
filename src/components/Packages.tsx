@@ -17,27 +17,27 @@ export default function Packages({ selected, onSelect }: { selected: string | nu
   }, []);
   const choose = (name: string) => { onSelect(name); document.getElementById('book')?.scrollIntoView({ behavior: 'smooth' }); };
   return (
-    <section id="packages" className="relative py-28 md:py-40">
+    <section id="packages" className="relative overflow-hidden py-20 sm:py-28 md:py-40">
       <div className="animate-drift-slow pointer-events-none absolute left-[-15%] top-[10%] h-[760px] w-[760px] will-change-transform bg-[radial-gradient(circle,rgba(14,124,134,0.28),rgba(14,124,134,0.08)_40%,transparent_68%)]" />
       <div className="animate-drift-slow pointer-events-none absolute right-[-12%] top-[45%] h-[700px] w-[700px] will-change-transform bg-[radial-gradient(circle,rgba(10,74,99,0.5),rgba(10,74,99,0.15)_40%,transparent_68%)]" style={{ animationDelay: '-9s' }} />
       <div className="relative mx-auto max-w-[1500px] px-5 md:px-10">
         <Eyebrow>Packages</Eyebrow>
         <div className="mt-8 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
-          <Reveal><h2 className="font-display text-5xl font-black leading-[0.95] md:text-7xl">OWN THE <span className="text-outline-aqua">BLUE</span></h2></Reveal>
+          <Reveal><h2 className="font-display text-[clamp(2.4rem,12.5vw,4.5rem)] font-black leading-[0.95] md:text-7xl">OWN THE <span className="text-outline-aqua">BLUE</span></h2></Reveal>
           <Reveal delay={0.15}><p className="max-w-xs text-sm leading-relaxed text-mist">Transparent pricing, no per-photo upsells. Every package includes full-resolution downloads with printing rights.</p></Reveal>
         </div>
-        <div className="mt-16 grid gap-6 lg:grid-cols-3">
+        <div className="mt-12 grid gap-6 md:mt-16 lg:grid-cols-3">
           {pkgs.map((p, i) => {
             const active = selected === p.name;
             return (
               <Reveal key={p.id} delay={i * 0.12} className={p.highlight ? 'lg:-mt-6' : ''}>
                 <motion.article whileHover={{ y: -10 }} transition={{ type: 'spring', stiffness: 260, damping: 22 }} data-hover onClick={() => choose(p.name)}
-                  className={`group relative overflow-hidden rounded-sm p-8 md:p-10 ${p.highlight ? 'border border-aqua/60 bg-gradient-to-b from-ocean/80 to-deep/90 shadow-[0_0_80px_rgba(70,212,195,0.15)]' : 'glass'} ${active ? 'ring-2 ring-aqua' : ''}`}>
+                  className={`group relative overflow-hidden rounded-sm p-6 sm:p-8 md:p-10 ${p.highlight ? 'border border-aqua/60 bg-gradient-to-b from-ocean/80 to-deep/90 shadow-[0_0_80px_rgba(70,212,195,0.15)]' : 'glass'} ${active ? 'ring-2 ring-aqua' : ''}`}>
                   {p.highlight && <div className="absolute inset-x-0 top-0 flex items-center justify-center gap-2 bg-aqua py-2 text-[10px] font-bold uppercase tracking-[0.35em] text-abyss"><Sparkles size={12} /> Most chosen <Sparkles size={12} /></div>}
                   <div className={p.highlight ? 'pt-6' : ''}>
                     <h3 className="font-display text-3xl font-light text-foam">{p.name}</h3>
                     <p className="mt-2 min-h-[40px] text-sm italic text-mist">{p.tagline}</p>
-                    <p className="mt-6 flex items-baseline gap-2"><span className="text-sm text-mist">from</span><span className={`font-display text-6xl font-black ${p.highlight ? 'shimmer-text' : 'text-foam'}`}>${p.price}</span></p>
+                    <p className="mt-6 flex items-baseline gap-2"><span className="text-sm text-mist">from</span><span className={`font-display text-5xl font-black sm:text-6xl ${p.highlight ? 'shimmer-text' : 'text-foam'}`}>${p.price}</span></p>
                     <ul className="mt-8 space-y-3.5 border-t border-foam/10 pt-8">
                       {p.features.map((f) => (
                         <li key={f} className="flex items-start gap-3 text-sm text-foam/80">

@@ -32,7 +32,7 @@ export default function Nav() {
             </span>
             <span className="leading-none">
               <span className="font-display block text-xl font-semibold tracking-wide">VDOMATT</span>
-              <span className="block text-[9px] uppercase tracking-[0.4em] text-mist">Matt Baer · Underwater video</span>
+              <span className="hidden text-[9px] uppercase tracking-[0.4em] text-mist sm:block">Matt Baer · Underwater video</span>
             </span>
           </a>
           <nav className="hidden items-center gap-9 lg:flex">
@@ -56,21 +56,21 @@ export default function Nav() {
       </motion.header>
       <AnimatePresence>
         {open && (
-          <motion.div initial={{ opacity: 0, clipPath: 'circle(0% at 92% 5%)' }} animate={{ opacity: 1, clipPath: 'circle(150% at 92% 5%)' }} exit={{ opacity: 0, clipPath: 'circle(0% at 92% 5%)' }} transition={{ duration: 0.7, ease: [0.76, 0, 0.24, 1] }} className="fixed inset-0 z-[70] flex flex-col bg-deep/95">
+          <motion.div initial={{ opacity: 0, clipPath: 'circle(0% at 92% 5%)' }} animate={{ opacity: 1, clipPath: 'circle(150% at 92% 5%)' }} exit={{ opacity: 0, clipPath: 'circle(0% at 92% 5%)' }} transition={{ duration: 0.7, ease: [0.76, 0, 0.24, 1] }} className="fixed inset-0 z-[70] flex flex-col overflow-y-auto bg-deep/95">
             <div className="flex items-center justify-between px-5 py-5">
               <span className="font-display text-xl">VDOMATT</span>
               <button onClick={() => setOpen(false)} className="grid h-11 w-11 place-items-center rounded-full border border-foam/20" aria-label="Close menu">
                 <X size={19} />
               </button>
             </div>
-            <nav className="flex flex-1 flex-col items-start justify-center gap-2 px-8">
+            <nav className="flex flex-1 flex-col items-start justify-center gap-3 px-6 py-6 sm:px-8">
               {[...LINKS, { href: '#book', label: 'Book a dive' }].map((l, i) => (
-                <motion.a key={l.href + l.label} href={l.href} onClick={() => setOpen(false)} initial={{ opacity: 0, x: -40 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.25 + i * 0.08, duration: 0.6, ease: [0.22, 1, 0.36, 1] }} className="font-display text-5xl font-light text-foam/90 transition-colors hover:text-aqua">
+                <motion.a key={l.href + l.label} href={l.href} onClick={() => setOpen(false)} initial={{ opacity: 0, x: -40 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.25 + i * 0.08, duration: 0.6, ease: [0.22, 1, 0.36, 1] }} className="font-display text-4xl font-light leading-tight text-foam/90 transition-colors hover:text-aqua sm:text-5xl">
                   <span className="mr-4 text-sm text-aqua">0{i + 1}</span>{l.label}
                 </motion.a>
               ))}
             </nav>
-            <p className="px-8 pb-8 text-[11px] uppercase tracking-[0.35em] text-mist">Koh Tao · Sail Rock · Red Sea</p>
+            <p className="px-6 pb-8 text-[11px] sm:px-8 uppercase tracking-[0.35em] text-mist">Koh Tao · Sail Rock · Red Sea</p>
           </motion.div>
         )}
       </AnimatePresence>

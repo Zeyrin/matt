@@ -11,17 +11,17 @@ export default function Footer() {
     <footer className="relative overflow-hidden border-t border-aqua/15">
       <div ref={refractionRef} className="refraction-bg absolute inset-0 opacity-25" />
       <div className="absolute -bottom-60 left-1/2 h-[30rem] w-[150%] -translate-x-1/2 bg-[radial-gradient(ellipse_at_center,rgba(14,124,134,0.22),rgba(14,124,134,0.06)_45%,transparent_70%)]" />
-      <div className="relative mx-auto max-w-[1500px] px-5 pb-10 pt-20 md:px-10">
+      <div className="relative mx-auto max-w-[1500px] px-5 pb-10 pt-16 md:px-10 md:pt-20">
         <Reveal>
           <div className="flex flex-col items-start justify-between gap-10 md:flex-row md:items-end">
-            <h2 className="font-display text-[clamp(2.8rem,9vw,7.5rem)] font-black leading-[0.9]">DON&apos;T JUST<br /><span className="text-outline">DIVE IT.</span> <span className="italic text-aqua">KEEP IT.</span></h2>
+            <h2 className="font-display text-[clamp(2.2rem,9vw,7.5rem)] font-black leading-[0.9]">DON&apos;T JUST<br /><span className="text-outline">DIVE IT.</span> <span className="italic text-aqua">KEEP IT.</span></h2>
             <a href="#book" data-hover className="group flex shrink-0 items-center gap-3 rounded-full bg-aqua px-8 py-4 text-[12px] font-bold uppercase tracking-[0.25em] text-abyss transition-all duration-500 hover:shadow-[0_0_50px_rgba(70,212,195,0.7)]">
               Book your shoot
               <span className="grid h-6 w-6 place-items-center rounded-full bg-abyss text-aqua transition-transform duration-500 group-hover:-translate-y-1"><ArrowUp size={14} className="rotate-45" /></span>
             </a>
           </div>
         </Reveal>
-        <div className="mt-16 grid gap-10 border-t border-foam/10 pt-10 md:grid-cols-4">
+        <div className="mt-14 grid gap-10 border-t border-foam/10 pt-10 sm:grid-cols-2 md:mt-16 md:grid-cols-4">
           <div>
             <p className="font-display text-2xl">VDOMATT</p>
             <p className="mt-2 text-[11px] uppercase tracking-[0.35em] text-mist">Matt Baer · Underwater videography · Koh Tao & Red Sea</p>

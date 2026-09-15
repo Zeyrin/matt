@@ -31,7 +31,7 @@ export default function DepthSection() {
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] });
   const bgY = useTransform(scrollYProgress, [0, 1], ['-14%', '14%']);
   return (
-    <section ref={ref} className="relative overflow-hidden py-32 md:py-44">
+    <section ref={ref} className="relative overflow-hidden py-24 sm:py-32 md:py-44">
       <motion.div style={{ y: bgY }} className="absolute -inset-y-[16%] inset-x-0 will-change-transform">
         <img src="/img/g4.jpg" alt="Ocean surface from below" loading="lazy" decoding="async" className="h-full w-full object-cover" />
       </motion.div>
@@ -40,18 +40,18 @@ export default function DepthSection() {
       <Caustics id="depth" opacity={0.5} />
       <div className="relative mx-auto max-w-[1500px] px-5 md:px-10">
         <p className="text-center text-[11px] uppercase tracking-[0.5em] text-aqua">The logbook</p>
-        <h2 className="font-display mx-auto mt-6 max-w-4xl text-center text-4xl font-light leading-tight md:text-6xl">Two seas. One lens.<span className="italic text-aqua"> Fifteen years of weightless footage.</span></h2>
+        <h2 className="font-display mx-auto mt-6 max-w-4xl text-center text-3xl font-light leading-tight sm:text-4xl md:text-6xl">Two seas. One lens.<span className="italic text-aqua"> Fifteen years of weightless footage.</span></h2>
         <div className="mt-16 grid grid-cols-2 gap-px overflow-hidden rounded-sm border border-foam/10 bg-foam/10 lg:grid-cols-4">
           {STATS.map(([n, suffix, label]) => (
-            <div key={label} className="group bg-abyss/85 p-8 transition-colors duration-500 hover:bg-deep/90 md:p-10" data-hover>
-              <p className="font-display text-4xl text-foam transition-colors duration-500 group-hover:text-aqua md:text-6xl"><CountUp to={n} suffix={suffix} /></p>
-              <p className="mt-3 text-[11px] uppercase tracking-[0.3em] text-mist">{label}</p>
+            <div key={label} className="group bg-abyss/85 p-5 transition-colors duration-500 hover:bg-deep/90 sm:p-8 md:p-10" data-hover>
+              <p className="font-display text-3xl text-foam transition-colors duration-500 group-hover:text-aqua sm:text-4xl md:text-6xl"><CountUp to={n} suffix={suffix} /></p>
+              <p className="mt-3 text-[10px] uppercase tracking-[0.2em] text-mist sm:text-[11px] sm:tracking-[0.3em]">{label}</p>
             </div>
           ))}
         </div>
-        <div className="mt-14 flex items-center gap-4">
+        <div className="mt-14 flex items-center gap-2 sm:gap-4">
           {['0m', '10m', '20m', '30m', '40m'].map((d, i) => (
-            <div key={d} className="flex flex-1 items-center gap-4">
+            <div key={d} className="flex flex-1 items-center gap-2 sm:gap-4">
               <div className="flex flex-col items-center gap-2">
                 <span className={`h-2 w-2 rotate-45 ${i === 2 ? 'bg-aqua shadow-[0_0_12px_rgba(70,212,195,1)]' : 'bg-foam/25'}`} />
                 <span className={`text-[10px] tabular-nums tracking-widest ${i === 2 ? 'text-aqua' : 'text-mist'}`}>{d}</span>
@@ -65,7 +65,7 @@ export default function DepthSection() {
         <div className="mt-24 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
           <div>
             <p className="text-[11px] uppercase tracking-[0.5em] text-aqua">From the channel</p>
-            <h3 className="font-display mt-4 text-3xl font-light text-foam md:text-5xl">Watch the water <span className="italic text-aqua">move.</span></h3>
+            <h3 className="font-display mt-4 text-2xl font-light text-foam sm:text-3xl md:text-5xl">Watch the water <span className="italic text-aqua">move.</span></h3>
           </div>
           <a href="https://www.youtube.com/@mattbaervdomatt609" target="_blank" rel="noreferrer" data-hover className="group flex items-center gap-3 text-[11px] uppercase tracking-[0.35em] text-mist transition-colors hover:text-aqua">
             All 55 films on YouTube <Youtube size={16} className="text-aqua transition-transform duration-500 group-hover:translate-x-1" />
