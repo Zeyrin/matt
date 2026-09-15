@@ -1,0 +1,127 @@
+@import "tailwindcss";
+
+@theme {
+  --color-abyss: #010a13;
+  --color-deep: #03202f;
+  --color-ocean: #06304a;
+  --color-current: #0a4a63;
+  --color-teal: #0e7c86;
+  --color-aqua: #46d4c3;
+  --color-glow: #9ff0e2;
+  --color-foam: #e9f5f1;
+  --color-mist: #8fb0b8;
+  --color-sand: #e9d8b6;
+  --color-coral: #ff6b4a;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 90px;
+  background: #010a13;
+}
+
+body {
+  background: #010a13;
+  color: #e9f5f1;
+  font-family: "Space Grotesk", sans-serif;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection { background: #46d4c3; color: #010a13; }
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-track { background: #010a13; }
+::-webkit-scrollbar-thumb { background: linear-gradient(180deg, #0e7c86, #06304a); border-radius: 8px; }
+
+@media (pointer: fine) {
+  body, body * { cursor: none !important; }
+}
+
+.text-outline { -webkit-text-stroke: 1.5px rgba(233,245,241,0.9); color: transparent; }
+.text-outline-aqua { -webkit-text-stroke: 1.5px rgba(70,212,195,0.75); color: transparent; }
+.text-outline-faint { -webkit-text-stroke: 1px rgba(70,212,195,0.28); color: transparent; }
+@media (max-width: 640px) {
+  .text-outline, .text-outline-aqua { -webkit-text-stroke-width: 1px; }
+}
+
+/* No backdrop-filter: it forces a re-blur of everything behind the element
+   on every frame the page scrolls, which is the single worst thing for
+   integrated GPUs. A more opaque flat fill reads nearly the same. */
+.glass {
+  background: rgba(6,48,74,0.82);
+  border: 1px solid rgba(70,212,195,0.16);
+}
+
+.font-display { font-family: "Fraunces", Georgia, serif; }
+
+@keyframes marquee { to { transform: translateX(-50%); } }
+@keyframes float-y { 0%,100% { transform: translateY(-12px); } 50% { transform: translateY(12px); } }
+@keyframes drift-slow {
+  0%,100% { transform: translate(0,0) scale(1); }
+  33% { transform: translate(40px,-30px) scale(1.08); }
+  66% { transform: translate(-30px,25px) scale(0.96); }
+}
+@keyframes ray-sway {
+  0%,100% { transform: skewX(-14deg) translateX(0); opacity: 0.35; }
+  50% { transform: skewX(-9deg) translateX(50px); opacity: 0.7; }
+}
+@keyframes caustic-pan {
+  0% { transform: scale(1.15) translate(0,0) rotate(0deg); }
+  50% { transform: scale(1.28) translate(-3%,4%) rotate(3deg); }
+  100% { transform: scale(1.15) translate(3%,-3%) rotate(-3deg); }
+}
+@keyframes scroll-cue {
+  0% { transform: scaleY(0); transform-origin: top; }
+  45% { transform: scaleY(1); transform-origin: top; }
+  55% { transform: scaleY(1); transform-origin: bottom; }
+  100% { transform: scaleY(0); transform-origin: bottom; }
+}
+@keyframes spin-slower { to { transform: rotate(360deg); } }
+@keyframes glow-pulse {
+  0%,100% { opacity: 0.5; box-shadow: 0 0 24px rgba(70,212,195,0.35); }
+  50% { opacity: 1; box-shadow: 0 0 60px rgba(70,212,195,0.7); }
+}
+@keyframes refraction { 0%,100% { transform: translate3d(0%,0%,0); } 50% { transform: translate3d(-8%,6%,0); } }
+
+.animate-marquee { animation: marquee 30s linear infinite; }
+.animate-marquee-fast { animation: marquee 18s linear infinite; }
+.animate-float-y { animation: float-y 7s ease-in-out infinite; }
+.animate-drift-slow { animation: drift-slow 18s ease-in-out infinite; }
+.animate-ray { animation: ray-sway 9s ease-in-out infinite; }
+.animate-caustic { animation: caustic-pan 16s ease-in-out infinite alternate; }
+.animate-scroll-cue { animation: scroll-cue 2.4s cubic-bezier(0.65,0,0.35,1) infinite; }
+.animate-spin-slower { animation: spin-slower 24s linear infinite; }
+.animate-glow-pulse { animation: glow-pulse 3s ease-in-out infinite; }
+
+.refraction-bg {
+  inset: -10%;
+  background: linear-gradient(115deg, #06304a, #0a4a63, #0e7c86, #06304a, #03202f, #0a4a63);
+  background-size: 150% 150%;
+  animation: refraction 14s ease-in-out infinite;
+  will-change: transform;
+}
+/* Static gradient text. Animating background-position under background-clip:
+   text can't be composited, so it repainted the glyphs 60x/sec forever. */
+.shimmer-text {
+  background: linear-gradient(110deg, #e9f5f1 10%, #9ff0e2 45%, #46d4c3 60%, #e9f5f1 100%);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+
+.field {
+  width: 100%; background: rgba(1,10,19,0.55); border: 1px solid rgba(70,212,195,0.2);
+  border-radius: 2px; padding: 0.9rem 1.1rem; color: #e9f5f1; font-size: 0.95rem; outline: none;
+  transition: border-color 0.35s ease, box-shadow 0.35s ease, background 0.35s ease;
+}
+.field::placeholder { color: rgba(143,176,184,0.6); }
+.field:focus {
+  border-color: rgba(70,212,195,0.8);
+  box-shadow: 0 0 0 1px rgba(70,212,195,0.4), 0 0 32px rgba(70,212,195,0.12);
+  background: rgba(1,10,19,0.8);
+}
+select.field option { background: #03202f; color: #e9f5f1; }
+input[type="date"].field::-webkit-calendar-picker-indicator { filter: invert(0.7) sepia(1) saturate(3) hue-rotate(130deg); }
+
+/* The colour grade is baked into the JPEGs; a runtime filter on every
+   gallery image cost a filter pass + its own layer per image. */
+.img-deep { transition: transform 1.2s cubic-bezier(0.22,1,0.36,1); }
+.group:hover .img-deep { transform: scale(1.07); }
