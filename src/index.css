@@ -145,6 +145,16 @@ input[type="date"].field { line-height: 1.4; }
 input[type="date"].field::-webkit-date-and-time-value { text-align: left; }
 input[type="date"].field::-webkit-calendar-picker-indicator { filter: invert(0.7) sepia(1) saturate(3) hue-rotate(130deg); }
 
+/* Horizontal photo rail on phones: momentum swiping, no back-swipe
+   hijack from the browser, and no scrollbar sitting under the cards. */
+.reel-rail {
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.reel-rail::-webkit-scrollbar { display: none; }
+
 /* The colour grade is baked into the JPEGs; a runtime filter on every
    gallery image cost a filter pass + its own layer per image. */
 .img-deep { transition: transform 1.2s cubic-bezier(0.22,1,0.36,1); }
